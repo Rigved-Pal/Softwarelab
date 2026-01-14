@@ -1,0 +1,16 @@
+# Student Result Processing System - Input File
+# Format: StudentID Name Mark1 Mark2 Mark3 Mark4 Mark5
+# All marks should be between 0-100
+# StudentID must be alphanumeric and unique
+# Name must contain only alphabets
+
+ST001 RahulSharma 85 90 78 88 92
+ST002 PriyaGupta 92 88 95 90 93
+ST003 AmitPatel 65 70 68 72 69
+ST004 SnehaReddy 78 82 80 85 79
+ST005 VikasSingh 45 50 48 52 46
+ST006 AnjaliVerma 55 58 60 57 59
+ST007 RajeshKumar 88 85 90 87 86
+ST008 NehaMishra 72 75 70 73 74
+ST009 SanjayJoshi 60 62 65 63 61
+ST010 KavitaNair 95 98 96 97 99
