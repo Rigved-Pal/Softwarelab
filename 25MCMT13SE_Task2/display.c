@@ -1,13 +1,8 @@
-/*
- * display.c
- * Implementation of display module
- */
-
 #include <stdio.h>
 #include "display.h"
 #include "statistics.h"
 
-void displayStudentReport(struct Student students[], int count) {
+void displayReport(struct Student students[], int count) {
     printf("\n==================== STUDENT RESULT REPORT ====================\n\n");
     
     printf("%-10s %-15s %-7s %-7s %-7s %-7s %-7s %-8s %-9s %-6s %-6s\n",
@@ -35,20 +30,20 @@ void displayStudentReport(struct Student students[], int count) {
     printf("==========\n");
 }
 
-void displayStatistics(struct Student students[], int count) {
+void displayStats(struct Student students[], int count) {
     if (count == 0) {
         printf("No students to display statistics.\n");
         return;
     }
     
     // Calculate statistics
-    float avgPercentage = calculateClassAverage(students, count);
-    float highest = findHighestPercentage(students, count);
-    float lowest = findLowestPercentage(students, count);
-    float passPercent = calculatePassPercentage(students, count);
+    float avgPercentage = calculateAverage(students, count);
+    float highest = HighestPercentage(students, count);
+    float lowest = LowestPercentage(students, count);
+    float passPercent = PassPercentage(students, count);
     
     struct GradeStatistics stats;
-    calculateGradeDistribution(students, count, &stats);
+    GradeDistribution(students, count, &stats);
     
     printf("\n==================== CLASS STATISTICS ====================\n\n");
     printf("Total Students           : %d\n", count);
@@ -69,7 +64,7 @@ void displayStatistics(struct Student students[], int count) {
     printf("==========================================================\n");
 }
 
-void displayMenu() {
+void displayDesk() {
     printf("\n========== Student Result Processing System ==========\n");
     printf("1. Display Student Report\n");
     printf("2. Display Statistics\n");
@@ -81,7 +76,7 @@ void displayMenu() {
     printf("Enter your choice: ");
 }
 
-void displayStudentDetails(struct Student *student) {
+void displayDetails(struct Student *student) {
     printf("\n----- Student Details -----\n");
     printf("ID         : %s\n", student->id);
     printf("Name       : %s\n", student->name);

@@ -2,9 +2,9 @@
 #define COMPUTATION_H
 
 #include "student.h"
-void calculateStudentResults(struct Student *student);
-void assignGrade(struct Student *student);
-float calculateCGPA(float percentage);
-int checkPassingStatus(struct Student *student);
+void calculateResults(struct Student *student);
+void assignedGrade(struct Student *student);
+float CGPAcalculate(float percentage);
+int checkPassStatus(struct Student *student);
 
 #endif 

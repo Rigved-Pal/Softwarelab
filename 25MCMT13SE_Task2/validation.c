@@ -1,21 +1,17 @@
-/*
- * validation.c
- * Implementation of validation module
- */
-
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
 #include "validation.h"
 
-int validateStudentID(const char *id, struct Student students[], int count) {
+int StudentIDvalidation(const char *id, struct Student students[], int count) {
     // Check if ID is empty
     if (id == NULL || strlen(id) == 0) {
         return 0;
     }
     
     // Check if alphanumeric
-    if (!isAlphanumeric(id)) {
+    if (!Isalphanum
+        (id)) {
         return 0;
     }
     
@@ -29,19 +25,19 @@ int validateStudentID(const char *id, struct Student students[], int count) {
     return 1;  // Valid and unique
 }
 
-int validateName(const char *name) {
+int validateStudentName(const char *name) {
     if (name == NULL || strlen(name) == 0) {
         return 0;
     }
     
-    return isAlphabetic(name);
+    return isAlphabet(name);
 }
 
-int validateMarks(float mark) {
+int validateStudentMarks(float mark) {
     return (mark >= 0.0 && mark <= 100.0);
 }
 
-int isAlphanumeric(const char *str) {
+int Isalphanum(const char *str) {
     if (str == NULL || strlen(str) == 0) {
         return 0;
     }
@@ -54,7 +50,7 @@ int isAlphanumeric(const char *str) {
     return 1;
 }
 
-int isAlphabetic(const char *str) {
+int isAlphabet(const char *str) {
     if (str == NULL || strlen(str) == 0) {
         return 0;
     }

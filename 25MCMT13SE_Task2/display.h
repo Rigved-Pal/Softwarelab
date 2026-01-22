@@ -2,10 +2,10 @@
 #define DISPLAY_H
 
 #include "student.h"
-void displayStudentReport(struct Student students[], int count);
-void displayStatistics(struct Student students[], int count);
-void displayMenu();
+void displayReport(struct Student students[], int count);
+void displayStats(struct Student students[], int count);
+void displayDesk();
 
-void displayStudentDetails(struct Student *student);
+void displayDetails(struct Student *student);
 
 #endif 

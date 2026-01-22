@@ -3,8 +3,8 @@
 
 #include "student.h"
 
-int readStudentsFromFile(const char *filename, struct Student students[], int *count);
-int writeStudentsToFile(const char *filename, struct Student students[], int count);
-int exportToCSV(const char *filename, struct Student students[], int count);
+int readFromFile(const char *filename, struct Student students[], int *count);
+int writeToFile(const char *filename, struct Student students[], int count);
+int exportCSV(const char *filename, struct Student students[], int count);
 
 #endif 

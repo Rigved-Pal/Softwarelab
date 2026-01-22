@@ -26,10 +26,10 @@ int main(int argc, char *argv[]) {
     // Command line argument support for batch processing (Interoperability)
     if (argc > 1) {
         printf("Batch mode: Reading from '%s'\n", argv[1]);
-        if (readStudentsFromFile(argv[1], students, &studentCount) == 0) {
+        if (readFromFile(argv[1], students, &studentCount) == 0) {
             printf("Successfully processed %d student(s)\n", studentCount);
-            displayStudentReport(students, studentCount);
-            displayStatistics(students, studentCount);
+            displayReport(students, studentCount);
+            displayStats(students, studentCount);
         }
         return 0;
     }
@@ -48,7 +48,7 @@ void processResults() {
     
     printf("Reading student data from '%s'...\n", filename);
     
-    if (readStudentsFromFile(filename, students, &studentCount) != 0) {
+    if (readFromFile(filename, students, &studentCount) != 0) {
         printf("Error reading file. Please ensure 'students.txt' exists.\n");
         printf("Creating sample file format...\n");
         
@@ -82,7 +82,7 @@ void interactiveMode() {
     char searchID[MAX_ID_LEN];
     
     while (1) {
-        displayMenu();
+        displayDesk();
         
         if (scanf("%d", &choice) != 1) {
             printf("Invalid input. Please enter a number.\n");
@@ -92,20 +92,20 @@ void interactiveMode() {
         
         switch (choice) {
             case 1:
-                displayStudentReport(students, studentCount);
+                displayReport(students, studentCount);
                 break;
                 
             case 2:
-                displayStatistics(students, studentCount);
+                displayStats(students, studentCount);
                 break;
                 
             case 3:
-                exportToCSV("results.csv", students, studentCount);
+                exportCSV("results.csv", students, studentCount);
                 printf("CSV export complete. File can be opened in Excel/Spreadsheet.\n");
                 break;
                 
             case 4:
-                writeStudentsToFile("results.txt", students, studentCount);
+                writeToFile("results.txt", students, studentCount);
                 printf("Report saved successfully.\n");
                 break;
                 
@@ -114,7 +114,7 @@ void interactiveMode() {
                 scanf("%s", searchID);
                 struct Student *found = searchStudentByID(students, studentCount, searchID);
                 if (found) {
-                    displayStudentDetails(found);
+                    displayDetails(found);
                 } else {
                     printf("Student with ID '%s' not found.\n", searchID);
                 }

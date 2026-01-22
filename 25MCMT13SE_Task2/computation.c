@@ -1,42 +1,37 @@
-/*
- * computation.c
- * Implementation of computation module
- */
-
-#include <string.h>
 #include "computation.h"
+#include <string.h>
 
-void calculateStudentResults(struct Student *student) {
-    // Calculate total marks
+
+void calculateResults(struct Student *student) {
     student->total = 0.0;
     for (int i = 0; i < NUM_SUBJECTS; i++) {
         student->total += student->marks[i];
     }
     
-    // Calculate percentage
+    // Calculate Student percentage
     student->percentage = (student->total / (NUM_SUBJECTS * 100.0)) * 100.0;
     
-    // Check passing status
-    student->passed = checkPassingStatus(student);
+    // Check Student passing status
+    student->passed = checkPassStatus(student);
     
-    // Assign grade
-    assignGrade(student);
+    // CGPA Calculation
+    student->cgpa = CGPAcalculate(student->percentage);
+
+    // Assigned grade
+    assignedGrade(student);
     
-    // Calculate CGPA
-    student->cgpa = calculateCGPA(student->percentage);
 }
 
-void assignGrade(struct Student *student) {
+void assignedGrade(struct Student *student) {
     float per = student->percentage;
     
-    // If failed in any subject, grade is F
+    // If grade is F
     if (!student->passed) {
         strcpy(student->grade, "F");
         student->cgpa = 0.0;
         return;
     }
     
-    // Assign grade based on percentage
     if (per >= 90.0) {
         strcpy(student->grade, "O");
     } else if (per >= 85.0) {
@@ -56,15 +51,15 @@ void assignGrade(struct Student *student) {
     }
 }
 
-float calculateCGPA(float percentage) {
+float CGPAcalculate(float percentage) {
     return percentage / 10.0;
 }
 
-int checkPassingStatus(struct Student *student) {
+int checkPassStatus(struct Student *student) {
     for (int i = 0; i < NUM_SUBJECTS; i++) {
         if (student->marks[i] < PASSING_PERCENTAGE) {
-            return 0;  // Failed in at least one subject
+            return 0;  
         }
     }
-    return 1;  // Passed all subjects
+    return 1; 
 }

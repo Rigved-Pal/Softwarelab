@@ -1,8 +1,3 @@
-/*
- * fileio.c
- * Implementation of file I/O module
- */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -10,7 +5,7 @@
 #include "validation.h"
 #include "computation.h"
 
-int readStudentsFromFile(const char *filename, struct Student students[], int *count) {
+int readFromFile(const char *filename, struct Student students[], int *count) {
     FILE *file = fopen(filename, "r");
     if (file == NULL) {
         printf("Error: Cannot open file '%s'\n", filename);
@@ -43,13 +38,13 @@ int readStudentsFromFile(const char *filename, struct Student students[], int *c
         }
         
         // Validate ID
-        if (!validateStudentID(tempID, students, *count)) {
+        if (!StudentIDvalidation(tempID, students, *count)) {
             printf("Line %d: Invalid/Duplicate ID '%s' - rejected\n", lineNum, tempID);
             continue;
         }
         
         // Validate name
-        if (!validateName(tempName)) {
+        if (!validateStudentName(tempName)) {
             printf("Line %d: Invalid name '%s' - rejected\n", lineNum, tempName);
             continue;
         }
@@ -58,7 +53,7 @@ int readStudentsFromFile(const char *filename, struct Student students[], int *c
         float marks[NUM_SUBJECTS] = {m1, m2, m3, m4, m5};
         int validMarks = 1;
         for (int i = 0; i < NUM_SUBJECTS; i++) {
-            if (!validateMarks(marks[i])) {
+            if (!validateStudentMarks(marks[i])) {
                 printf("Line %d: Invalid marks %.2f - rejected\n", lineNum, marks[i]);
                 validMarks = 0;
                 break;
@@ -75,7 +70,7 @@ int readStudentsFromFile(const char *filename, struct Student students[], int *c
         strcpy(temp.name, tempName);
         
         // Calculate results
-        calculateStudentResults(&temp);
+        calculateResults(&temp);
         
         // Add to array
         students[*count] = temp;
@@ -86,7 +81,7 @@ int readStudentsFromFile(const char *filename, struct Student students[], int *c
     return 0;
 }
 
-int writeStudentsToFile(const char *filename, struct Student students[], int count) {
+int writeToFile(const char *filename, struct Student students[], int count) {
     FILE *file = fopen(filename, "w");
     if (file == NULL) {
         printf("Error: Cannot create file '%s'\n", filename);
@@ -116,7 +111,7 @@ int writeStudentsToFile(const char *filename, struct Student students[], int cou
     return 0;
 }
 
-int exportToCSV(const char *filename, struct Student students[], int count) {
+int exportCSV(const char *filename, struct Student students[], int count) {
     FILE *file = fopen(filename, "w");
     if (file == NULL) {
         printf("Error: Cannot create CSV file '%s'\n", filename);

@@ -1,12 +1,7 @@
-/*
- * statistics.c
- * Implementation of statistics module
- */
-
 #include <string.h>
 #include "statistics.h"
 
-float calculateClassAverage(struct Student students[], int count) {
+float calculateAverage(struct Student students[], int count) {
     if (count == 0) return 0.0;
     
     float total = 0.0;
@@ -17,7 +12,7 @@ float calculateClassAverage(struct Student students[], int count) {
     return total / count;
 }
 
-float findHighestPercentage(struct Student students[], int count) {
+float HighestPercentage(struct Student students[], int count) {
     if (count == 0) return 0.0;
     
     float highest = students[0].percentage;
@@ -30,7 +25,7 @@ float findHighestPercentage(struct Student students[], int count) {
     return highest;
 }
 
-float findLowestPercentage(struct Student students[], int count) {
+float LowestPercentage(struct Student students[], int count) {
     if (count == 0) return 0.0;
     
     float lowest = students[0].percentage;
@@ -43,7 +38,7 @@ float findLowestPercentage(struct Student students[], int count) {
     return lowest;
 }
 
-void calculateGradeDistribution(struct Student students[], int count, 
+void GradeDistribution(struct Student students[], int count, 
                                  struct GradeStatistics *stats) {
     // Initialize all counts to 0
     stats->gradeO = 0;
@@ -77,7 +72,7 @@ void calculateGradeDistribution(struct Student students[], int count,
     }
 }
 
-float calculatePassPercentage(struct Student students[], int count) {
+float PassPercentage(struct Student students[], int count) {
     if (count == 0) return 0.0;
     
     int passedCount = 0;

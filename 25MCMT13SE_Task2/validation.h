@@ -2,10 +2,10 @@
 #define VALIDATION_H
 
 #include "student.h"
-int validateStudentID(const char *id, struct Student students[], int count);
-int validateName(const char *name);
-int validateMarks(float mark);
-int isAlphanumeric(const char *str);
-int isAlphabetic(const char *str);
+int StudentIDvalidation(const char *id, struct Student students[], int count);
+int validateStudentName(const char *name);
+int validateStudentMarks(float mark);
+int Isalphanum(const char *str);
+int isAlphabet(const char *str);
 
 #endif 

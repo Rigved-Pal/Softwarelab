@@ -77,7 +77,7 @@ Provides all validation functions for student data.
 
 ### Functions
 
-#### 2.1 validateStudentID()
+#### 2.1 StudentIDvalidation()
 
 **Input:**
 - `id` (const char*) - Student ID to validate
@@ -92,7 +92,7 @@ Provides all validation functions for student data.
 ```
 Algorithm:
 1. Check if ID is empty -> return 0
-2. Check if ID is alphanumeric using isAlphanumeric()
+2. Check if ID is alphanumeric using Isalphanum()
    - If not alphanumeric -> return 0
 3. Loop through existing students
    - If ID matches any existing ID -> return 0 (duplicate)
@@ -105,7 +105,7 @@ Algorithm:
 
 ---
 
-#### 2.2 validateName()
+#### 2.2 validateStudentName()
 
 **Input:**
 - `name` (const char*) - Student name to validate
@@ -117,7 +117,7 @@ Algorithm:
 ```
 Algorithm:
 1. Check if name is empty -> return 0
-2. Call isAlphabetic() helper function
+2. Call isAlphabet() helper function
 3. Return result
 ```
 
@@ -127,7 +127,7 @@ Algorithm:
 
 ---
 
-#### 2.3 validateMarks()
+#### 2.3 validateStudentMarks()
 
 **Input:**
 - `mark` (float) - Mark value to validate
@@ -147,7 +147,7 @@ Algorithm:
 
 ---
 
-#### 2.4 isAlphanumeric()
+#### 2.4 Isalphanum()
 
 **Input:**
 - `str` (const char*) - String to check
@@ -170,7 +170,7 @@ Algorithm:
 
 ---
 
-#### 2.5 isAlphabetic()
+#### 2.5 isAlphabet()
 
 **Input:**
 - `str` (const char*) - String to check
@@ -207,7 +207,7 @@ Handles all grade and result calculations.
 
 ### Functions
 
-#### 3.1 calculateStudentResults()
+#### 3.1 calculateResults()
 
 **Input:**
 - `student` (struct Student*) - Pointer to student structure
@@ -223,9 +223,9 @@ Algorithm:
    - total += student->marks[i]
 3. student->total = total
 4. student->percentage = (total / 500) * 100
-5. Call checkPassingStatus(student)
-6. Call assignGrade(student)
-7. student->cgpa = calculateCGPA(student->percentage)
+5. Call checkPassStatus(student)
+6. Call assignedGrade(student)
+7. student->cgpa = CGPAcalculate(student->percentage)
 ```
 
 **Output:**
@@ -233,7 +233,7 @@ Algorithm:
 
 ---
 
-#### 3.2 assignGrade()
+#### 3.2 assignedGrade()
 
 **Input:**
 - `student` (struct Student*) - Pointer to student structure
@@ -270,7 +270,7 @@ Algorithm:
 
 ---
 
-#### 3.3 calculateCGPA()
+#### 3.3 CGPAcalculate()
 
 **Input:**
 - `percentage` (float) - Percentage value
@@ -290,7 +290,7 @@ Algorithm:
 
 ---
 
-#### 3.4 checkPassingStatus()
+#### 3.4 checkPassStatus()
 
 **Input:**
 - `student` (struct Student*) - Pointer to student structure
@@ -327,7 +327,7 @@ Handles all file input/output operations.
 
 ### Functions
 
-#### 4.1 readStudentsFromFile()
+#### 4.1 readFromFile()
 
 **Input:**
 - `filename` (const char*) - Name of input file
@@ -349,12 +349,12 @@ Algorithm:
    - Skip comments (#) and empty lines
    - Parse line: ID, Name, 5 marks
    - If parsing fails: skip line
-   - Validate ID using validateStudentID()
-   - Validate name using validateName()
-   - Validate all marks using validateMarks()
+   - Validate ID using StudentIDvalidation()
+   - Validate name using validateStudentName()
+   - Validate all marks using validateStudentMarks()
    - If all valid:
      - Store data in temp student
-     - Call calculateStudentResults()
+     - Call calculateResults()
      - Add to students array
      - count++
 5. Close file
@@ -368,7 +368,7 @@ Algorithm:
 
 ---
 
-#### 4.2 writeStudentsToFile()
+#### 4.2 writeToFile()
 
 **Input:**
 - `filename` (const char*) - Output file name
@@ -398,7 +398,7 @@ Algorithm:
 
 ---
 
-#### 4.3 exportToCSV()
+#### 4.3 exportCSV()
 
 **Input:**
 - `filename` (const char*) - CSV file name
@@ -441,7 +441,7 @@ Handles all user interface and output display.
 
 ### Functions
 
-#### 5.1 displayStudentReport()
+#### 5.1 displayReport()
 
 **Input:**
 - `students[]` (struct Student[]) - Students array
@@ -467,7 +467,7 @@ Algorithm:
 
 ---
 
-#### 5.2 displayStatistics()
+#### 5.2 displayStats()
 
 **Input:**
 - `students[]` (struct Student[]) - Students array
@@ -479,11 +479,11 @@ Algorithm:
 **Logic:**
 ```
 Algorithm:
-1. Call calculateClassAverage()
-2. Call findHighestPercentage()
-3. Call findLowestPercentage()
-4. Call calculatePassPercentage()
-5. Call calculateGradeDistribution()
+1. Call calculateAverage()
+2. Call HighestPercentage()
+3. Call LowestPercentage()
+4. Call PassPercentage()
+5. Call GradeDistribution()
 6. Print all statistics in formatted way
 7. Print grade distribution
 ```
@@ -507,7 +507,7 @@ Provides statistical analysis functions.
 
 ### Functions
 
-#### 6.1 calculateClassAverage()
+#### 6.1 calculateAverage()
 
 **Input:**
 - `students[]` (struct Student[]) - Students array
@@ -532,7 +532,7 @@ Algorithm:
 
 ---
 
-#### 6.2 findHighestPercentage()
+#### 6.2 HighestPercentage()
 
 **Input:**
 - `students[]` (struct Student[]) - Students array
@@ -557,7 +557,7 @@ Algorithm:
 
 ---
 
-#### 6.3 calculateGradeDistribution()
+#### 6.3 GradeDistribution()
 
 **Input:**
 - `students[]` (struct Student[]) - Students array
