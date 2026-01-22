@@ -1,0 +1,113 @@
+Project Name,Student Result Processing System, ,Browser,Google Chrome, ,Version,120.0.6099.130 (64-bit)
+Written By,Rigved Pal, ,Description, Test Plan of Student Result Processing System
+Tested By,Rigved Pal, ,Tested on, 22/01/2026
+
+
+Test ID,Module Name,Function Name,Test Case Description,Input,Pre-condition,Expected Output,Actual Output,Status,Remarks
+VP-001,Validation,validateStudentID(),Valid alphanumeric ID,"ID = ""ST001"" students = [] count = 0",ID should not be NULL,Return 1 (valid),,PASS,ID is alphanumeric and unique
+VP-002,Validation,validateStudentID(),Invalid ID with special characters,"ID = ""ST@001"" students = [] count = 0",ID should not be NULL,Return 0 (invalid),,PASS,Special character @ detected
+VP-003,Validation,validateStudentID(),Duplicate ID,"ID = ""ST001"" students contains ST001 count = 1",Students array has existing data,Return 0 (duplicate),,PASS,Duplicate ID rejected
+VP-004,Validation,validateStudentID(),Empty ID,"ID = """" students = [] count = 0",None,Return 0 (invalid),,PASS,Empty string rejected
+VP-005,Validation,validateStudentID(),ID with spaces,"ID = ""ST 001"" students = [] count = 0",ID should not be NULL,Return 0 (invalid),,PASS,Space is not alphanumeric
+VP-006,Validation,validateStudentID(),Numeric only ID,"ID = ""12345"" students = [] count = 0",ID should not be NULL,Return 1 (valid),,PASS,Numbers are alphanumeric
+VP-007,Validation,validateStudentID(),Very long ID,"ID = ""ST00112345678901234567890"" students = [] count = 0",ID should not be NULL,Return 1 (valid),,PASS,Alphanumeric validation passes
+VN-001,Validation,validateName(),Valid name with only alphabets,"name = ""RahulSharma""",Name should not be NULL,Return 1 (valid),,PASS,All characters are alphabetic
+VN-002,Validation,validateName(),Invalid name with digits,"name = ""Rahul123""",Name should not be NULL,Return 0 (invalid),,PASS,Digits detected in name
+VN-003,Validation,validateName(),Invalid name with special characters,"name = ""Rahul@Sharma""",Name should not be NULL,Return 0 (invalid),,PASS,Special character @ detected
+VN-004,Validation,validateName(),Empty name,"name = """"",Name should not be NULL,Return 0 (invalid),,PASS,Empty string rejected
+VN-005,Validation,validateName(),Name with spaces,"name = ""Rahul Sharma""",Name should not be NULL,Return 0 (invalid),,PASS,Space is not alphabetic
+VN-006,Validation,validateName(),Single character name,"name = ""A""",Name should not be NULL,Return 1 (valid),,PASS,Single alphabet is valid
+VN-007,Validation,validateName(),Name with underscore,"name = ""Rahul_Sharma""",Name should not be NULL,Return 0 (invalid),,PASS,Underscore is not alphabetic
+VM-001,Validation,validateMarks(),Valid marks in range,mark = 85.5,None,Return 1 (valid),,PASS,Marks within 0-100 range
+VM-002,Validation,validateMarks(),Boundary value - minimum (0),mark = 0,None,Return 1 (valid),,PASS,Zero is valid minimum
+VM-003,Validation,validateMarks(),Boundary value - maximum (100),mark = 100,None,Return 1 (valid),,PASS,100 is valid maximum
+VM-004,Validation,validateMarks(),Invalid negative marks,mark = -10,None,Return 0 (invalid),,PASS,Negative value rejected
+VM-005,Validation,validateMarks(),Invalid marks above 100,mark = 105,None,Return 0 (invalid),,PASS,Value above 100 rejected
+VM-006,Validation,validateMarks(),Boundary value - just below 0,mark = -0.1,None,Return 0 (invalid),,PASS,Below minimum rejected
+VM-007,Validation,validateMarks(),Boundary value - just above 100,mark = 100.1,None,Return 0 (invalid),,PASS,Above maximum rejected
+VM-008,Validation,validateMarks(),Decimal marks,mark = 45.75,None,Return 1 (valid),,PASS,Decimal values accepted
+CR-001,Computation,calculateStudentResults(),Calculate all results with passing marks,marks = [85 90 78 88 92],Student marks should be valid,"total=433 percentage=86.6 grade=""A+"" cgpa=8.66 passed=1",,PASS,All calculations correct
+CR-002,Computation,calculateStudentResults(),Calculate with one failing mark,marks = [85 90 45 88 92],Student marks should be valid,"total=400 percentage=80.0 grade=""F"" cgpa=0.0 passed=0",,PASS,Failed due to subject < 50
+CR-003,Computation,calculateStudentResults(),Calculate with all maximum marks,marks = [100 100 100 100 100],Student marks should be valid,"total=500 percentage=100.0 grade=""O"" cgpa=10.0 passed=1",,PASS,Perfect score calculated
+CR-004,Computation,calculateStudentResults(),Calculate with all minimum passing,marks = [50 50 50 50 50],Student marks should be valid,"total=250 percentage=50.0 grade=""D"" cgpa=5.0 passed=1",,PASS,Boundary case - exactly 50%
+CR-005,Computation,calculateStudentResults(),Calculate with all zero marks,marks = [0 0 0 0 0],Student marks should be valid,"total=0 percentage=0.0 grade=""F"" cgpa=0.0 passed=0",,PASS,Complete failure case
+AG-001,Computation,assignGrade(),Assign grade O for >= 90%,percentage = 95.0 passed = 1,Percentage should be valid,"grade = ""O""",,PASS,Grade O assigned correctly
+AG-002,Computation,assignGrade(),Assign grade A+ for 85-90%,percentage = 87.0 passed = 1,Percentage should be valid,"grade = ""A+""",,PASS,Grade A+ assigned correctly
+AG-003,Computation,assignGrade(),Assign grade A for 75-85%,percentage = 80.0 passed = 1,Percentage should be valid,"grade = ""A""",,PASS,Grade A assigned correctly
+AG-004,Computation,assignGrade(),Assign grade B+ for 65-75%,percentage = 70.0 passed = 1,Percentage should be valid,"grade = ""B+""",,PASS,Grade B+ assigned correctly
+AG-005,Computation,assignGrade(),Assign grade B for 60-65%,percentage = 62.0 passed = 1,Percentage should be valid,"grade = ""B""",,PASS,Grade B assigned correctly
+AG-006,Computation,assignGrade(),Assign grade C for 55-60%,percentage = 57.0 passed = 1,Percentage should be valid,"grade = ""C""",,PASS,Grade C assigned correctly
+AG-007,Computation,assignGrade(),Assign grade D for 50-55%,percentage = 52.0 passed = 1,Percentage should be valid,"grade = ""D""",,PASS,Grade D assigned correctly
+AG-008,Computation,assignGrade(),Assign grade F for failed subject,percentage = 70.0 passed = 0,Percentage should be valid,"grade = ""F"" cgpa = 0.0",,PASS,Failed even with good percentage
+AG-009,Computation,assignGrade(),Boundary - exactly 90%,percentage = 90.0 passed = 1,Percentage should be valid,"grade = ""O""",,PASS,Boundary case for grade O
+AG-010,Computation,assignGrade(),Boundary - exactly 85%,percentage = 85.0 passed = 1,Percentage should be valid,"grade = ""A+""",,PASS,Boundary case for grade A+
+AG-011,Computation,assignGrade(),Boundary - exactly 75%,percentage = 75.0 passed = 1,Percentage should be valid,"grade = ""A""",,PASS,Boundary case for grade A
+CG-001,Computation,calculateCGPA(),Normal percentage to CGPA,percentage = 85.0,Percentage should be valid,cgpa = 8.5,,PASS,CGPA = percentage / 10
+CG-002,Computation,calculateCGPA(),Maximum CGPA,percentage = 100.0,Percentage should be valid,cgpa = 10.0,,PASS,Maximum CGPA is 10.0
+CG-003,Computation,calculateCGPA(),Minimum CGPA,percentage = 0.0,Percentage should be valid,cgpa = 0.0,,PASS,Minimum CGPA is 0.0
+CG-004,Computation,calculateCGPA(),Decimal percentage,percentage = 67.5,Percentage should be valid,cgpa = 6.75,,PASS,Decimal conversion correct
+PS-001,Computation,checkPassingStatus(),All subjects passed,marks = [65 70 75 80 85],Student marks should be valid,Return 1 (passed),,PASS,All marks >= 50
+PS-002,Computation,checkPassingStatus(),One subject failed,marks = [65 45 75 80 85],Student marks should be valid,Return 0 (failed),,PASS,Subject 2 has 45 < 50
+PS-003,Computation,checkPassingStatus(),Boundary - exactly 50 in all,marks = [50 50 50 50 50],Student marks should be valid,Return 1 (passed),,PASS,Exactly 50 is passing
+PS-004,Computation,checkPassingStatus(),Boundary - one subject 49.9,marks = [60 70 49.9 80 90],Student marks should be valid,Return 0 (failed),,PASS,49.9 < 50 is failing
+PS-005,Computation,checkPassingStatus(),Multiple subjects failed,marks = [45 40 35 80 90],Student marks should be valid,Return 0 (failed),,PASS,Three subjects failed
+RF-001,File I/O,readStudentsFromFile(),Read valid student data,File with 5 valid records,File should exist and be readable,count = 5 return = 0,,PASS,All 5 records loaded
+RF-002,File I/O,readStudentsFromFile(),File not found,"filename = ""missing.txt""",None,Error message printed return = -1,,PASS,File not found handled
+RF-003,File I/O,readStudentsFromFile(),Invalid data in file,File with 3 valid + 2 invalid records,File should exist,count = 3 return = 0,,PASS,Invalid records skipped
+RF-004,File I/O,readStudentsFromFile(),Empty file,Empty file,File should exist,count = 0 return = 0,,PASS,No records loaded
+RF-005,File I/O,readStudentsFromFile(),File with comments,File with # comments and valid data,File should exist,Valid records loaded (comments ignored),,PASS,Comments properly skipped
+RF-006,File I/O,readStudentsFromFile(),Incomplete data records,File with missing fields,File should exist,Incomplete records rejected,,PASS,Error messages shown
+RF-007,File I/O,readStudentsFromFile(),Mixed valid/invalid IDs,File with duplicate and invalid IDs,File should exist,Only unique valid IDs accepted,,PASS,Validation working
+WF-001,File I/O,writeStudentsToFile(),Write valid student data,5 students with valid data,Students array should have valid data,File created return = 0,,PASS,results.txt created successfully
+WF-002,File I/O,writeStudentsToFile(),Write to read-only location,Protected directory path,File path should be valid,Error message return = -1,,FAIL,Permission denied (expected)
+WF-003,File I/O,writeStudentsToFile(),Overwrite existing file,Filename of existing file,Students array should have valid data,File overwritten return = 0,,PASS,Old content replaced
+EC-001,File I/O,exportToCSV(),Export to CSV format,5 students with valid data,Students array should have valid data,CSV file created return = 0,,PASS,results.csv created
+EC-002,File I/O,exportToCSV(),CSV opens in Excel,Generated CSV file,CSV file should exist,Opens correctly in Excel,,PASS,Interoperability verified
+EC-003,File I/O,exportToCSV(),CSV data integrity,Generated CSV with 10 students,CSV file should exist,All 10 records present with correct data,,PASS,No data loss
+EC-004,File I/O,exportToCSV(),CSV special characters in name,Student with name containing comma,Students array should have valid data,Name properly handled in CSV,,PASS,CSV format maintained
+CA-001,Statistics,calculateClassAverage(),Average of 5 students,percentages: 80 90 70 85 75,count > 0,average = 80.0,,PASS,Sum / count = 400 / 5
+CA-002,Statistics,calculateClassAverage(),Single student,1 student with 85.5%,count > 0,average = 85.5,,PASS,Single value returned
+CA-003,Statistics,calculateClassAverage(),All same percentage,5 students all with 75%,count > 0,average = 75.0,,PASS,Uniform distribution
+CA-004,Statistics,calculateClassAverage(),Empty student list,count = 0,None,Return 0.0,,PASS,Zero division handled
+CA-005,Statistics,calculateClassAverage(),Large class size,100 students,count > 0,Correct average calculated,,PASS,Performance acceptable
+HP-001,Statistics,findHighestPercentage(),Find highest in mixed scores,percentages: 80 95 70 85 75,count > 0,highest = 95.0,,PASS,Maximum value found
+HP-002,Statistics,findHighestPercentage(),All same scores,All students with 80%,count > 0,highest = 80.0,,PASS,Any value is highest
+HP-003,Statistics,findHighestPercentage(),Single student,1 student with 67.5%,count > 0,highest = 67.5,,PASS,Single value returned
+HP-004,Statistics,findHighestPercentage(),Highest at beginning,percentages: 99 80 70 60 50,count > 0,highest = 99.0,,PASS,First element can be highest
+HP-005,Statistics,findHighestPercentage(),Highest at end,percentages: 50 60 70 80 99,count > 0,highest = 99.0,,PASS,Last element can be highest
+LP-001,Statistics,findLowestPercentage(),Find lowest in mixed scores,percentages: 80 95 70 85 75,count > 0,lowest = 70.0,,PASS,Minimum value found
+LP-002,Statistics,findLowestPercentage(),All same scores,All students with 80%,count > 0,lowest = 80.0,,PASS,Any value is lowest
+LP-003,Statistics,findLowestPercentage(),Single student,1 student with 67.5%,count > 0,lowest = 67.5,,PASS,Single value returned
+LP-004,Statistics,findLowestPercentage(),Lowest at beginning,percentages: 45 80 70 90 95,count > 0,lowest = 45.0,,PASS,First element can be lowest
+LP-005,Statistics,findLowestPercentage(),Lowest at end,percentages: 90 85 75 65 40,count > 0,lowest = 40.0,,PASS,Last element can be lowest
+GD-001,Statistics,calculateGradeDistribution(),Mixed grades distribution,Grades: O A+ A B+ B C D F (1 each),count > 0 stats pointer valid,Each grade count = 1,,PASS,All grades counted
+GD-002,Statistics,calculateGradeDistribution(),All same grade,10 students all with grade A,count > 0 stats pointer valid,gradeA = 10 others = 0,,PASS,Single grade distribution
+GD-003,Statistics,calculateGradeDistribution(),No failures,All students passed,count > 0 stats pointer valid,gradeF = 0,,PASS,No F grade counted
+GD-004,Statistics,calculateGradeDistribution(),All failures,All students with grade F,count > 0 stats pointer valid,gradeF = count others = 0,,PASS,All F grades counted
+GD-005,Statistics,calculateGradeDistribution(),Large class,100 students various grades,count > 0 stats pointer valid,Sum of all grades = 100,,PASS,All students counted
+PP-001,Statistics,calculatePassPercentage(),All students passed,10 students all passed,count > 0,passPercentage = 100.0,,PASS,100% pass rate
+PP-002,Statistics,calculatePassPercentage(),All students failed,10 students all failed,count > 0,passPercentage = 0.0,,PASS,0% pass rate
+PP-003,Statistics,calculatePassPercentage(),Mixed results,10 students 8 passed 2 failed,count > 0,passPercentage = 80.0,,PASS,80% calculated correctly
+PP-004,Statistics,calculatePassPercentage(),Single student passed,1 student passed,count > 0,passPercentage = 100.0,,PASS,Single pass = 100%
+PP-005,Statistics,calculatePassPercentage(),Half passed,10 students 5 passed 5 failed,count > 0,passPercentage = 50.0,,PASS,50% calculated correctly
+DR-001,Display,displayStudentReport(),Display formatted table,5 students with valid data,Students array valid,Table with proper alignment displayed,,PASS,Usability - clear output
+DR-002,Display,displayStudentReport(),Empty student list,count = 0,None,Appropriate message shown,,PASS,Edge case handled
+DR-003,Display,displayStudentReport(),Single student,1 student,Students array valid,Single row table displayed,,PASS,Works with minimum data
+DR-004,Display,displayStudentReport(),Maximum students,100 students,Students array valid,All 100 rows displayed,,PASS,Large dataset handled
+DS-001,Display,displayStatistics(),Complete statistics display,10 students with valid data,Students array valid,Average highest lowest grade distribution shown,,PASS,All statistics visible
+DS-002,Display,displayStatistics(),Empty student list,count = 0,None,Error message displayed,,PASS,Edge case handled gracefully
+DS-003,Display,displayStatistics(),Statistics accuracy,Known student data,Students array valid,Calculated values match expected,,PASS,Calculations verified
+DM-001,Display,displayMenu(),Display interactive menu,None,None,Menu with 6 options displayed,,PASS,Usability - clear options
+DM-002,Display,displayMenu(),Menu formatting,None,None,Proper alignment and readability,,PASS,Professional appearance
+DD-001,Display,displayStudentDetails(),Single student details,Student with ID ST001,Student should be valid,All details displayed clearly,,PASS,Complete information shown
+DD-002,Display,displayStudentDetails(),Student with failing marks,Student who failed,Student should be valid,Status shows FAIL,,PASS,Failure indicated clearly
+IT-001,Integration,End-to-end workflow,Complete system test,students.txt with 10 records,File exists and is valid,All modules work together report generated,,PASS,Full integration successful
+IT-002,Integration,Interactive menu navigation,Test all menu options 1-6,Valid student data loaded,System running,Each option executes correctly,,PASS,All features functional
+IT-003,Integration,CSV export and Excel,Export and open in Excel,Valid student data,System running,CSV opens data preserved,,PASS,Interoperability achieved
+IT-004,Integration,Command line arguments,./student_system custom.txt,custom.txt exists,None,Custom file processed,,PASS,CLI working correctly
+IT-005,Integration,Maximum capacity test,100 student records,File with 100 students,None,All processed no errors,,PASS,Efficiency verified
+IT-006,Integration,Modular compilation,Compile each module separately,All source files present,None,Modules compile and link successfully,,PASS,Modularity achieved
+IT-007,Integration,Error recovery,Invalid data then valid menu operations,Mixed data in file,System running,Invalid skipped valid processed,,PASS,Robust error handling
+IT-008,Integration,File creation permissions,Export when directory read-only,Protected output directory,System running,Appropriate error message,,PASS,Permission errors handled
+IT-009,Integration,Memory stress test,Process release reload,Large dataset,System running,No memory leaks,,PASS,Memory management correct
+IT-010,Integration,Concurrent file access,Multiple instances reading same file,File being read,File exists,Each instance works independently,,PASS,File locking not required

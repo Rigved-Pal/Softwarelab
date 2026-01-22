@@ -1,0 +1,5 @@
+ST001 RahulSharma 85 90 78 88 92
+ST002 PriyaGupta 92 88 95 90 93
+ST003 AmitPatel 65 70 68 72 69
+ST004 SnehaReddy 78 82 80 85 79
+ST005 VikasSingh 45 50 48 52 46

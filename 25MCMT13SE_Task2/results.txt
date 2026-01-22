@@ -1,0 +1,10 @@
+Student Result Report
+=====================
+
+ID         Name            Total    Percent  Grade      CGPA   Status
+-------------------------------------------------------------------
+ST001      RahulSharma     433.00   86.60    A+         8.66   PASS  
+ST002      PriyaGupta      458.00   91.60    O          9.16   PASS  
+ST003      AmitPatel       344.00   68.80    B+         6.88   PASS  
+ST004      SnehaReddy      404.00   80.80    A          8.08   PASS  
+ST005      VikasSingh      241.00   48.20    F          4.82   FAIL  
