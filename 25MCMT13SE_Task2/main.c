@@ -9,13 +9,15 @@
 #include "statistics.h"
 
 // Function prototypes
-void processResults();
 void interactiveMode();
+void processResults();
+
 struct Student* searchStudentByID(struct Student students[], int count, const char *id);
 
 // Global student array (can be optimized using dynamic allocation)
+int countofstudent = 0;
 struct Student students[MAX_STUDENTS];
-int studentCount = 0;
+
 
 int main(int argc, char *argv[]) {
     printf("\n========== Student Result Processing System ==========\n");
@@ -26,10 +28,10 @@ int main(int argc, char *argv[]) {
     // Command line argument support for batch processing (Interoperability)
     if (argc > 1) {
         printf("Batch mode: Reading from '%s'\n", argv[1]);
-        if (readFromFile(argv[1], students, &studentCount) == 0) {
-            printf("Successfully processed %d student(s)\n", studentCount);
-            displayReport(students, studentCount);
-            displayStats(students, studentCount);
+        if (readFromFile(argv[1], students, &countofstudent) == 0) {
+            printf("Successfully processed %d student(s)\n", countofstudent);
+            displayReport(students, countofstudent);
+            displayStats(students, countofstudent);
         }
         return 0;
     }
@@ -48,7 +50,7 @@ void processResults() {
     
     printf("Reading student data from '%s'...\n", filename);
     
-    if (readFromFile(filename, students, &studentCount) != 0) {
+    if (readFromFile(filename, students, &countofstudent) != 0) {
         printf("Error reading file. Please ensure 'students.txt' exists.\n");
         printf("Creating sample file format...\n");
         
@@ -64,16 +66,16 @@ void processResults() {
         return;
     }
     
-    if (studentCount == 0) {
+    if (countofstudent == 0) {
         printf("No valid student records found.\n");
         return;
     }
     
-    printf("Successfully processed %d student(s)\n\n", studentCount);
+    printf("Successfully processed %d student(s)\n\n", countofstudent);
 }
 
 void interactiveMode() {
-    if (studentCount == 0) {
+    if (countofstudent == 0) {
         printf("No student data available. Exiting...\n");
         return;
     }
@@ -92,27 +94,27 @@ void interactiveMode() {
         
         switch (choice) {
             case 1:
-                displayReport(students, studentCount);
+                displayReport(students, countofstudent);
                 break;
                 
             case 2:
-                displayStats(students, studentCount);
+                displayStats(students, countofstudent);
                 break;
                 
             case 3:
-                exportCSV("results.csv", students, studentCount);
+                exportCSV("results.csv", students, countofstudent);
                 printf("CSV export complete. File can be opened in Excel/Spreadsheet.\n");
                 break;
                 
             case 4:
-                writeToFile("results.txt", students, studentCount);
+                writeToFile("results.txt", students, countofstudent);
                 printf("Report saved successfully.\n");
                 break;
                 
             case 5:
                 printf("Enter Student ID to search: ");
                 scanf("%s", searchID);
-                struct Student *found = searchStudentByID(students, studentCount, searchID);
+                struct Student *found = searchStudentByID(students, countofstudent, searchID);
                 if (found) {
                     displayDetails(found);
                 } else {
